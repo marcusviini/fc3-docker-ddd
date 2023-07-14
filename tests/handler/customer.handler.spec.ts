@@ -16,14 +16,14 @@ describe('Customer Handler Unit Tests', () => {
     const customer = new Customer('1', 'Customer 1')
     const customerCreatedEvent = new CustomerCreatedEvent(customer)
     new SendEmailWhenCustomerIsCreatedHandler().handler(customerCreatedEvent)
-    expect(spyLog).toHaveBeenCalledWith('Email send')
+    expect(spyLog).toHaveBeenCalledWith('Esse é o primeiro console.log do evento: CustomerCreated')
   })
 
   test('Send To Cloud When Customer Is Created Handler', () => {
     const customer = new Customer('1', 'Customer 1')
     const customerCreatedEvent = new CustomerCreatedEvent(customer)
     new SendToCloudWhenCustomerIsCreatedHandler().handler(customerCreatedEvent)
-    expect(spyLog).toHaveBeenCalledWith('Enviando para a nuvem')
+    expect(spyLog).toHaveBeenCalledWith('Esse é o segundo console.log do evento: CustomerCreated')
   })
 
   test('Send Email When Customer Address Is Changed Handler', () => {
@@ -36,6 +36,6 @@ describe('Customer Handler Unit Tests', () => {
       address: customer.address.toString(),
     })
     new SendEmailWhenCustomerAddressIsChangedHandler().handler(customerCreatedEvent)
-    expect(spyLog).toHaveBeenCalledWith('Endereço do cliente alterado com sucesso')
+    expect(spyLog).toHaveBeenCalledWith(`Endereço do cliente: ${customer.id}, ${customer.name} alterado para: ${customer.address.toString()}`)
   })
 })

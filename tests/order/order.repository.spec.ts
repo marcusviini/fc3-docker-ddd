@@ -18,20 +18,20 @@ import CustomerRepository from '../../src/infrastructure/repository/customer.rep
 describe('Order repository test', () => {
   let sequelize: Sequelize
   it('Should true be true', () => expect(true).toBe(true))
-  beforeEach(async () => {
-    sequelize = await new Sequelize({
+  beforeEach(() => {
+    sequelize = new Sequelize({
       dialect: 'sqlite',
       storage: ':memory:',
       logging: false,
       sync: { force: true }
     })
-    await sequelize.addModels([
+    sequelize.addModels([
       CustomerModel,
       OrderModel,
       OrderItemModel,
       ProductModel,
     ])
-    await sequelize.sync()
+    return sequelize.sync()
   })
   afterEach(() => sequelize.close())
   it('Should create a new order', async () => {
